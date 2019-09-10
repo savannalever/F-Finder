@@ -1,39 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Friend Finder Pro</title>
-
-	<!-- Link to the jQuery Library -->
+	<title>Friend Finder</title>
   	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-  	<!-- Including Font Awesome Icons -->
   	<script src="https://use.fontawesome.com/b38c8ed4c7.js"></script>
-
-	<!-- Link to reset stylesheet -->
 	<link rel="stylesheet" href="css/reset.css">
-
-	<!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<!-- Compiled and minified Materialize CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-
-	<!-- Compiled and minified Materialize JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-          
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 	<header>
 		<nav>
-			<div class="nav-wrapper pink accent-2">
+			<div class="nav-wrapper grey accent-2">
 				<i class="fa fa-address-book-o fa-5x" aria-hidden="true" id=logo-icon></i>
 				<a href="/" class="brand-logo" id="logo">Friend Finder</a>
 				<ul class="right hide-on-med-and-down" id="head-nav-links">
 					<li><a href="/survey">Survey</a></li>
 					<li><a href="/api/friends">API Friends List</a></li>
-					<li><a href="https://github.com/angrbrd/friend-finder">GitHub Repo</a></li>
+					<li><a href="https://github.com/angrbrd/friend-finder">GitHub Repository</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -44,7 +31,7 @@
 			<div class="row">
 				<div class="col s12 z-depth-5 mainpanel">
 					<div id="mainpanel-content">
-						<h1>Survey Questions</h1>
+						<h2>Survey Questions</h2>
 						<div class="divider"></div>
 
 						<h3>About You</h3>
@@ -204,30 +191,6 @@
 		</div>
 	</main>
 
-	<footer class="page-footer pink accent-2">
-		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5 class="white-text">Friend Finder App</h5>
-					<p class="grey-text text-lighten-4">Thank you for taking the brief survey. Your responses will be used for training purposes only :-].</p>
-				</div>
-				<div class="col l4 offset-l2 s12">
-					<h5 class="white-text">Links</h5>
-					<ul>
-						<li><a class="grey-text text-lighten-3" href="/api/friends">API Friends List</a></li>
-						<li><a class="grey-text text-lighten-3" href="https://github.com/angrbrd/friend-finder">GitHub Repo</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="footer-copyright">
-			<div class="container">
-				© 2017 angrbrd entertainment
-				<a class="grey-text text-lighten-4 right" href="https://github.com/angrbrd">Reference Work</a>
-			</div>
-		</div>
-	</footer>
-
 	<!-- Modal Dialog Displaying Closest Friend Match -->
 	<div id="modal1" class="modal">
 		<div class="modal-content">
@@ -244,6 +207,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('select').material_select();
+
 			$('.modal').modal({
 				dismissible: false, // Modal can be dismissed by clicking outside of the modal
 				opacity: .5, // Opacity of modal background
@@ -253,9 +217,11 @@
 				endingTop: '10%' // Ending top style attribute
 			});
 		});
+
 		// Activate submit button
 		$('#submitButton').on('click', function(event) {
 			event.preventDefault();
+
 			// Gather user inputs
 			var userInput = {
 				name: $('#userName').val().trim(),
@@ -273,14 +239,18 @@
 					$('#question10').val().trim()
 				]
 			};
+
 			// console.log('userInput = ' + JSON.stringify(userInput));
+
 			// Add user inputs to friends list
 			$.post('/api/friends', userInput)
       		.done(function(data) {
       			// console.log('response = ' + JSON.stringify(data));
+
       			// Set the name and image values of friend match
       			$('#userMatch').html(data.matchName);
 		    	$("#userMatchImage").attr("src", data.matchImage);
+
 		    	// Pop open the modal dialog
       			$('#modal1').modal('open');
       		});
